@@ -1,8 +1,21 @@
-import numpy as np
 import pickle
+from pathlib import Path
 
 # Load saved model and scaler
-with open("model_rf.pkl", "rb") as f:
+model_path = Path.cwd() / "model_rf.pkl"
+scaler_path = Path.cwd() / "scaler.pkl"
+
+# Save the objects already trained in this notebook
+if not model_path.exists():
+    with open(model_path, "wb") as f:
+        pickle.dump(model_rf, f)
+
+if not scaler_path.exists():
+    with open(scaler_path, "wb") as f:
+        pickle.dump(scaler, f)
+
+# Load the saved model
+with open(model_path, "rb") as f:
     model = pickle.load(f)
 
 with open("scaler.pkl", "rb") as f:
